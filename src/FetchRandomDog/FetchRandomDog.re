@@ -9,9 +9,8 @@ type state =
 let make = () => {
   let (state, setState) = React.useState(() => LoadingDogs);
 
-  // Notice that instead of `useEffect`, we have `useEffect0`. See
-  // reasonml.github.io/reason-react/docs/en/components#hooks for more info
-  React.useEffect0(() => {
+
+  let newDog = () => {
     Js.Promise.(
       fetch("https://dog.ceo/api/breeds/image/random/1")
       |> then_(response => response##json())
@@ -25,6 +24,12 @@ let make = () => {
          })
       |> ignore
     );
+  };
+
+  // Notice that instead of `useEffect`, we have `useEffect0`. See
+  // reasonml.github.io/reason-react/docs/en/components#hooks for more info
+  React.useEffect0(() => {
+    newDog();
 
     // Returning None, instead of Some(() => ...), means we don't have any
     // cleanup to do before unmounting. That's not 100% true. We should
@@ -68,6 +73,6 @@ let make = () => {
          ->React.array
        }}
     </div>
-    <button> {React.string("New dog")} </button>
+    <button onClick={_ => newDog()}> {React.string("New dog")} </button>
   </>;
 };

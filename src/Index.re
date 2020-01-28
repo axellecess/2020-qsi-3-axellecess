@@ -2,6 +2,8 @@
 
 [@bs.val] external document: Js.t({..}) = "document";
 
+
+
 // We're using raw DOM manipulations here, to avoid making you read
 // ReasonReact when you might precisely be trying to learn it for the first
 // time through the examples later.
@@ -27,7 +29,29 @@ let makeContainer = text => {
   content;
 };
 
-// All 4 examples.
+let componentToDisplay = None;
+
+
+ReactDOMRe.render(<Navigation/>, makeContainer("Navigation"));
+
+/*<div>
+      (switch componentToDisplay {
+        | "Greeting" => ReactDOMRe.render(<Greeting />, makeContainer("Atomic Greeting"))
+        | "BlinkingGreeting" => ReactDOMRe.render(<BlinkingGreeting> {React.string("Hello!")} </BlinkingGreeting>, makeContainer("Blinking Greeting"))
+        | "ReducerFromReactJSDocs" => ReactDOMRe.render(<ReducerFromReactJSDocs />, makeContainer("Reducer From ReactJS Docs"),)
+        | "FetchedDogPictures" => ReactDOMRe.render(<FetchedDogPictures />,makeContainer("Fetched Dog Pictures"))
+        }
+      )
+</div>*/
+
+/*{
+  if(componentToDisplay != None){
+    ReactDOMRe.render(componentToDisplay, makeContainer(React.string(componentToDisplay)));
+  }
+}*/
+
+
+/*// All 4 examples.
 ReactDOMRe.render(<Greeting />, makeContainer("Atomic Greeting"));
 
 ReactDOMRe.render(
@@ -45,4 +69,5 @@ ReactDOMRe.render(
   makeContainer("Fetched Dog Pictures"),
 );
 
-ReactDOMRe.render(<FetchRandomDog />, makeContainer("1 random Dog"));
+ReactDOMRe.render(<FetchRandomDog />, makeContainer("1 random Dog"));*/
+
