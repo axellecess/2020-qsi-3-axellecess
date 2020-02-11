@@ -1,21 +1,29 @@
-[@bs.val] external fetch: string => Js.Promise.t('a) = "fetch";
+[@bs.val] external fetch: string => Js.Promise.t('a) = "Fetch";
 
 [@react.component]
 let make = () => {
-  
-  let userData = () => {
 
+  let userData = () => {
     Js.Promise.(
-      fetch("https://api.github.com/graphql")
-      |> then_(response => response##json())
-      |> then_(jsonResponse => {
-           Js.log(jsonResponse);
-           Js.Promise.resolve();
-         })
-      |> catch(_err => Js.Promise.resolve())
-      |> ignore
+      Fetch.fetchWithInit(
+        "https://api.github.com/graphql",
+        Fetch.RequestInit.make(
+          ~method_=Get,
+          ~headers=
+            Fetch.HeadersInit.make(
+              {
+                "Authorization": "bearer 70d8164b83db14b67a5037396c06782bffbc45d4",
+                "Content-Type": "application/x-www-form-urlencoded"
+              }
+            ),
+          (),
+        ))
+        |> then_(Fetch.Response.json)
+        |> then_(json => Js.log(json) |> resolve)
     );
   };
+
+
 
   userData();
 
